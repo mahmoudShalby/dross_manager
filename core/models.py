@@ -1,30 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-class namedLevel(models.Model):
+class Stage(models.Model):
+  owner = models.ForeignKey(User, models.CASCADE)
+  from_age = models.PositiveSmallIntegerField()
   name = models.CharField(max_length=20)
 
   def __str__(self):
     return self.name
 
-  class Meta:
-    abstract = True
-    managed = False
+class Grade(models.Model):
+  stage = models.ForeignKey(Stage, models.CASCADE)
+  name = models.CharField(max_length=20)
 
-class Stage(namedLevel):
-  owner = models.ForeignKey(User, models.CASCADE)
-  from_age = models.PositiveSmallIntegerField()
+  def __str__(self):
+    return self.name
 
-class Grade(namedLevel):
-  stage = models.ForeignKey('Stage', models.CASCADE)
-
-class Group(namedLevel):
-  stage = models.ForeignKey('Grade', models.CASCADE)
+class Group(models.Model):
+  stage = models.ForeignKey(Grade, models.CASCADE)
   classes = models.PositiveSmallIntegerField(default=0)
   class_price = models.PositiveSmallIntegerField()
+  name = models.CharField(max_length=20)
 
-class Test(namedLevel):
+  def __str__(self):
+    return self.name
+
+class Test(models.Model):
   class Level(models.TextChoices):
     ANY = 'A'
     EASE = 'E'
@@ -35,22 +36,30 @@ class Test(namedLevel):
   level = models.CharField(max_length=1, choices=Level.choices, default=Level.ANY)
   created_at = models.DateTimeField(auto_now=True)
   takers = models.ManyToManyField('Student')
+  name = models.CharField(max_length=20)
+
+  def __str__(self):
+    return self.name
 
   class Meta:
     ordering = ['created_at']
 
-class Student(namedLevel):
+class Student(models.Model):
   class Level(models.TextChoices):
     NORMAL = 'N'
     INTERMEDIATE = 'I'
     ADVANCED = 'A'
 
-  group = models.ForeignKey('Group', models.CASCADE)
+  group = models.ForeignKey(Group, models.CASCADE)
   has_to_pay = models.PositiveSmallIntegerField(default=0)
   paid = models.PositiveSmallIntegerField(default=0)
   attendance = models.PositiveSmallIntegerField(default=0)
   should_pay = models.BooleanField(default=True)
   level = models.TextField(max_length=1, choices=Level.choices, default=Level.NORMAL)
+  name = models.CharField(max_length=20)
+
+  def __str__(self):
+    return self.name
 
   class Meta:
     ordering = ['name']
