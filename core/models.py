@@ -11,16 +11,16 @@ class Stage(models.Model):
 
 class Grade(models.Model):
   stage = models.ForeignKey(Stage, models.CASCADE)
-  name = models.CharField(max_length=20)
+  index_in_stage = models.PositiveSmallIntegerField()
 
   def __str__(self):
     return self.name
 
 class Group(models.Model):
-  stage = models.ForeignKey(Grade, models.CASCADE)
+  grade = models.ForeignKey(Grade, models.CASCADE)
   classes = models.PositiveSmallIntegerField(default=0)
   class_price = models.PositiveSmallIntegerField()
-  name = models.CharField(max_length=20)
+  name = models.CharField(max_length=20, blank=True)
 
   def __str__(self):
     return self.name
