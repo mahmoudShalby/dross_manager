@@ -2,25 +2,23 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Stage(models.Model):
-  owner = models.ForeignKey(User, models.CASCADE)
-  from_age = models.PositiveSmallIntegerField()
   name = models.CharField(max_length=20)
+  owner = models.ForeignKey(User, models.CASCADE)
 
   def __str__(self):
     return self.name
 
 class Grade(models.Model):
   stage = models.ForeignKey(Stage, models.CASCADE)
-  index_in_stage = models.PositiveSmallIntegerField()
 
   def __str__(self):
     return self.name
 
 class Group(models.Model):
+  name = models.CharField(max_length=20, blank=True)
   grade = models.ForeignKey(Grade, models.CASCADE)
   classes = models.PositiveSmallIntegerField(default=0)
   class_price = models.PositiveSmallIntegerField()
-  name = models.CharField(max_length=20, blank=True)
 
   def __str__(self):
     return self.name
@@ -32,11 +30,11 @@ class Test(models.Model):
     MIDDLE = 'M'
     Hard = 'H'
 
+  name = models.CharField(max_length=20)
   max_mark = models.PositiveSmallIntegerField()
   level = models.CharField(max_length=1, choices=Level.choices, default=Level.ANY)
+  takers = models.ManyToManyField('Group')
   created_at = models.DateTimeField(auto_now=True)
-  takers = models.ManyToManyField('Student')
-  name = models.CharField(max_length=20)
 
   def __str__(self):
     return self.name
@@ -50,13 +48,13 @@ class Student(models.Model):
     INTERMEDIATE = 'I'
     ADVANCED = 'A'
 
+  name = models.CharField(max_length=20)
   group = models.ForeignKey(Group, models.CASCADE)
-  has_to_pay = models.PositiveSmallIntegerField(default=0)
+  egp = models.PositiveSmallIntegerField(default=0)
   paid = models.PositiveSmallIntegerField(default=0)
   attendance = models.PositiveSmallIntegerField(default=0)
-  should_pay = models.BooleanField(default=True)
+  have_to_pay = models.BooleanField(default=True)
   level = models.TextField(max_length=1, choices=Level.choices, default=Level.NORMAL)
-  name = models.CharField(max_length=20)
 
   def __str__(self):
     return self.name

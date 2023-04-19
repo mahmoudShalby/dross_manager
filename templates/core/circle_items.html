@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="flex flex-wrap justify-center gap-x-14 gap-y-12 px-12">
+  {% for item in items %}
+    <a href="{{ items_redirect_url }}/{{ item }}" class="w-16 h-16 bg-header grid place-items-center text-4xl rounded-full cursor-pointer">{{ forloop.counter }}</a>
+  {% endfor %}
+</section>
+{% endblock content %}

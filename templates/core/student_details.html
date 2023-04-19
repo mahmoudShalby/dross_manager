@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="pt-[56px] grid grid-cols-[60px_1fr] gap-y-[2px]">
+  <div class="bg-header grid place-items-center font-bold py-2">Name</div>
+  <div class="grid content-center px-2 py-2">Mahmoud Abdelatte Soliman Shalaby</div>
+  <!-- Level & Rank -->
+  <div class="bg-header grid place-items-center font-bold py-2">Level</div>
+  <div class="grid grid-cols-[calc(50vw-60px)_60px_1fr]">
+    <div class="grid content-center px-2 py-2 bg-field">80%</div>
+    <div class="bg-header grid place-items-center font-bold py-2">Rank</div>
+    <div class="grid content-center px-2 py-2 bg-field">1st</div>
+  </div>
+  <!-- EGP & Paid -->
+  <div class="bg-header grid place-items-center font-bold py-2">EGP</div>
+  <div class="grid grid-cols-[calc(50vw-60px)_60px_1fr]">
+    <div class="grid content-center px-2 py-2">120</div>
+    <div class="bg-header grid place-items-center font-bold py-2">Paid</div>
+    <div class="grid content-center px-2 py-2">80</div>
+  </div>
+  <!-- Attendance & classes -->
+  <div class="bg-header grid place-items-center font-bold py-2">Came</div>
+  <div class="grid grid-cols-[calc(50vw-60px)_60px_1fr]">
+    <div class="grid content-center px-2 py-2 bg-field">15</div>
+    <div class="bg-header grid place-items-center font-bold py-2">Of</div>
+    <div class="grid content-center px-2 py-2 bg-field">20</div>
+  </div>
+</section>
+{% endblock content %}
