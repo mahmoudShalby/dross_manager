@@ -12,12 +12,17 @@
   </head>
   <body class="bg-[#161b22] h-screen text-white">
     <div class="h-screen grid place-items-center">
-      <section class="flex flex-col w-full px-14">
-        <div class="flex flex-col">
-          <label for="username">What's your name</label><br>
-          <input class="w-full h-8 outline-none active:ring-4 hover:ring-4 ring-header transition px-2 text-black text-xl" type="text" id="name" name="username" placeholder="Name">
+      <form method="POST" class="flex flex-col w-full px-14 gap-y-2 items-center">
+        <div class="flex flex-col gap-y-2">
+          <label for="username" class="text-center">What's your name ?</label>
+          <input class="h-8 outline-none active:ring-4 hover:ring-4 ring-header transition px-2 text-xl bg-field" type="text" id="username" name="username" placeholder="username">
         </div>
-      </section>
+        <div class="flex flex-col gap-y-2">
+          <label for="password" class="text-center">Set a good password!</label>
+          <input class="h-8 outline-none active:ring-4 hover:ring-4 ring-header transition px-2 text-xl bg-field" type="password" id="password" name="password" placeholder="password">
+        </div>
+        <button type="submit" class="bg-header w-fit px-3 py-1 mt-1">Let's go</button>
+      </form>
     </div>
   </body>
 </html>
