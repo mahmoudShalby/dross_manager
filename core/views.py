@@ -1,19 +1,17 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
+from django.contrib import messages
 
 def login_view(request):
   if request.method == 'POST':
     username = request.POST.get('username')
     password = request.POST.get('password')
-    if not all((username, password)):
-      return JsonResponse({'exists': False})
+    if all((username, password)):
+      user = authenticate(request, username=username, password=password)
+      if user is not None:
+        login(request, user)
+        return redirect('/')
 
-    user = authenticate(request)
-    if not user:
-      return JsonResponse({'wrong': False})
+      messages.add_message(request, messages.error, 'Wrong username or password')
 
-    login(user)
-    return redirect('/')
-
-  return render(request, 'core/login.html', {})
+  return render(request, 'core/login.html')
